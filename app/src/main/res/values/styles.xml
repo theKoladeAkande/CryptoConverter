@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- inherit from the material theme -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Main Theme colors -->
+        <!--  color for the app bar -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+      >
+    </style>
+
+
+
+
+    <style name="BtcTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Main Theme colors -->
+        <!--  color for the app bar -->
+        <item name="android:colorPrimary">@color/btcColorPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/btcColorPrimaryDark</item>
+        <item name="android:windowBackground">@color/BtcwindowBackground</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        >
+    </style>
+
+    <style name="EthTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Main Theme colors -->
+        <!--  color for the app bar -->
+        <item name="android:colorPrimary">@color/grey_700</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/ethColorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        >
+    </style>
+
+    <style name="CurrencyTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Main Theme colors -->
+        <!--  color for the app bar -->
+        <item name="android:colorPrimary">@color/btcColorPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        >
+    </style>
+</resources>
