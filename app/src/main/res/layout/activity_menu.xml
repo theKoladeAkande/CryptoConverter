@@ -16,7 +16,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:title="@string/app_name"
-        app:titleTextColor="@android:color/white"
+        android:titleTextColor="@android:color/white"
         android:text="@string/app_name"/>
     <android.support.v7.widget.CardView
         android:id="@+id/BTC_view"

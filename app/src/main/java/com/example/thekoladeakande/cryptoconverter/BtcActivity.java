@@ -21,6 +21,12 @@ import retrofit2.Response;
 
 public class BtcActivity extends  AppCompatActivity {
 
+       String result;
+    TextView summaryText;
+    EditText editText;
+    EditText editText1;
+    double currency;
+    double btcValue;
     public static final int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,56 +39,428 @@ public class BtcActivity extends  AppCompatActivity {
         button.setTypeface(iconfont);
 
 
+          summaryText = (TextView) findViewById(R.id.btc_summary_text);
 
-         final EditText editText1 = (EditText) findViewById(R.id.currency_Text);
+//        TextView textview = (TextView) findViewById(R.id.textView3);
+//      final  String abb = textview.getText().toString();
+           editText1 = (EditText) findViewById(R.id.currency_Text);
+           editText = (EditText) findViewById(R.id.btc_number);
+                   editText.setText("0");
+                  editText1.setText("0");
 
-        TextView textview = (TextView) findViewById(R.id.textView3);
-       final  String abb = textview.getText().toString();
 
-        final EditText editText = (EditText) findViewById(R.id.btc_number);
-        //Double btcValue = Double.parseDouble(editText.getText().toString());
+
+
 
        button.setOnClickListener(new View.OnClickListener() {
             @Override
            public void onClick(View view) {
-                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-                Call<CurrencyValue> call =
-                        apiService.getValue("BTC", abb);
-
-
+                if (result == null )
+                {
+                    Toast.makeText(BtcActivity.this, "Select a valid currency for conversion", Toast.LENGTH_SHORT).show();
+                }
 
 
+                if (result!=null) {
+
+                    ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
 
-                // Set up progress before call
-                final ProgressDialog progressDoalog;
-                progressDoalog = new ProgressDialog(BtcActivity.this);
-                progressDoalog.setMax(100);
-                progressDoalog.setMessage("Fetching data");
-                progressDoalog.setTitle("ProgressDialog bar example");
-                progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                // show it
-                progressDoalog.show();
+                    Call<CurrencyValue> call =
+                            apiService.getValue("BTC", result);
 
 
-                call.enqueue(new Callback<CurrencyValue>() {
-               @Override
-              public void onResponse(Call<CurrencyValue>call, Response<CurrencyValue> response){
-                   progressDoalog.dismiss();
-                   double  btcvalue2 =    response.body().getValue();
-                   editText1.setText(String.valueOf(btcvalue2));
-                 }
-                    @Override
-                    public void onFailure(Call<CurrencyValue> call, Throwable t) {
-                        Toast.makeText(BtcActivity.this, "pls check your network connection", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
+                    // Set up progress before call
+                    final ProgressDialog progressDoalog;
+                    progressDoalog = new ProgressDialog(BtcActivity.this);
+                    progressDoalog.setMax(100);
+                    progressDoalog.setMessage("Getting Currency Value");
+                    progressDoalog.setTitle("ProgressDialog bar example");
+                    progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    // show it
+                    progressDoalog.show();
 
 
+                    call.enqueue(new Callback<CurrencyValue>() {
+                        @Override
+                        public void onResponse(Call<CurrencyValue> call, Response<CurrencyValue> response) {
+                            progressDoalog.dismiss();
 
+                            if (result.equals("USD")) {
+                                double currencyValue2 = response.body().getUSD();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+                            } else if
+                                    (result.equals("NGN")) {
+                                double currencyValue2 = response.body().getNGN();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("NLG")) {
+                                double currencyValue2 = response.body().getNLG();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+
+                            } else if
+                                    (result.equals("GBP")) {
+                                double currencyValue2 = response.body().getGBP();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+
+                            } else if
+                                    (result.equals("ESP")) {
+                                double currencyValue2 = response.body().getESP();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("CNY")) {
+                                double currencyValue2 = response.body().getCNY();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+
+                            } else if
+                                    (result.equals("KRW")) {
+                                double currencyValue2 = response.body().getKRW();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("AUD")) {
+                                double currencyValue2 = response.body().getAUD();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("DMK")) {
+                                double currencyValue2 = response.body().getDMK();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("EUR")) {
+                                double currencyValue2 = response.body().getEUR();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+                            } else if
+                                    (result.equals("SAR")) {
+                                double currencyValue2 = response.body().getSAR();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("CHF")) {
+                                double currencyValue2 = response.body().getCHF();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("ZAR")) {
+                                double currencyValue2 = response.body().getZAR();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+                            } else if
+                                    (result.equals("ILS")) {
+                                double currencyValue2 = response.body().getILS();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("ITL")) {
+                                double currencyValue2 = response.body().getITL();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+
+                            } else if
+                                    (result.equals("GHS")) {
+                                double currencyValue2 = response.body().getGHS();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("RUB")) {
+                                double currencyValue2 = response.body().getRUB();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            } else if
+                                    (result.equals("QAR")) {
+                                double currencyValue2 = response.body().getQAR();
+                                currency = Double.valueOf(editText1.getText().toString());
+                                btcValue = Double.valueOf(editText.getText().toString());
+                                if (btcValue > 0 && currency == 0) {
+                                    double currencyValue3 = btcValue * currencyValue2;
+                                    editText1.setText(String.valueOf(currencyValue3));
+                                    String summary = String.valueOf(currencyValue3);
+                                    summaryText.setText(String.valueOf(btcValue) + "BTC equals " + summary + result);
+                                } else if (currency > 0 && btcValue == 0) {
+                                    double currencyValue4 = currency / currencyValue2;
+                                    editText.setText(String.valueOf(currencyValue4));
+
+                                    summaryText.setText(String.valueOf(currencyValue4) + "BTC equals " + currency + result);
+                                } else
+                                    editText.setText("1");
+                                editText1.setText(String.valueOf(currencyValue2));
+                                summaryText.setText("1 BTC equals " + currencyValue2 + result);
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CurrencyValue> call, Throwable t) {
+                            progressDoalog.dismiss();
+                            Toast.makeText(BtcActivity.this, "Verify network connection", Toast.LENGTH_LONG).show();
+                        }
+
+                    });
+                }// END OF IF FOR RETROFIT CALL
+                }
+            });
 
 
 
@@ -105,7 +483,7 @@ public class BtcActivity extends  AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
 
             if (resultCode == Activity.RESULT_OK) {
-                String result = data.getStringExtra("ABB");
+               result = data.getStringExtra("ABB");
                 TextView textView = (TextView)findViewById(R.id.textView3);
                 textView.setText(result);
 
@@ -121,15 +499,11 @@ public class BtcActivity extends  AppCompatActivity {
 
 
 
-
     public void btc_button_click(View v)
    {
        Toast.makeText(BtcActivity.this, "only BTC conversion here",
                Toast.LENGTH_LONG).show();
    }
-
-
-
 
 
 
