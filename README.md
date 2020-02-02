@@ -1,2 +1,2 @@
 # CryptoConverter
-Gives you the latest covnversion rates for major crypto currency
+An android appication that gives you the latest covnversion rates for major cryptocurrencies
